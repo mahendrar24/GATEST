@@ -22,10 +22,22 @@ jobs:
         with:
           # JMeter test plan to execute
           test-plan-path: './Thread Group.jmx'
+          # Where to store the results
+          results-file: 'result.jtl'
+          # Generate HTML dashboard report
+          generate-report: true
+          report-folder: 'jmeter-report'
 
-      - name: Upload Results
-        uses: actions/upload-artifact@v3
+      - name: Upload JTL Results
+        uses: actions/upload-artifact@v4
         with:
           name: jmeter-results
           path: result.jtl
+          if-no-files-found: error
+
+      - name: Upload JMeter HTML Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: jmeter-html-report
+          path: jmeter-report
           if-no-files-found: error
